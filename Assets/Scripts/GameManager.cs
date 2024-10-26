@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI gameOverText; // name same as in Unity editor
     public TextMeshProUGUI timerText;
-    private bool stopWatchStart = false;
+    public bool stopWatchStart = false;
     private float stopWatchTime = 0;
 
     public TextMeshProUGUI countText;
@@ -60,11 +60,10 @@ public class GameManager : MonoBehaviour
         {
             stopWatchTime += Time.deltaTime;
 
-            int minutes = Mathf.FloorToInt(stopWatchTime % 60);
+            int minutes = Mathf.FloorToInt(stopWatchTime / 60);
             int seconds = Mathf.FloorToInt(stopWatchTime % 60);
-            timerText.text = string.Format("{0:00}", minutes, seconds);
+            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         }
-        
     }
 
     IEnumerator SpawnImage() //methods to iterate over collection, return control to Unity temporarily
