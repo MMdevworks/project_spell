@@ -5,25 +5,32 @@ using System.Collections; //
 using TMPro; //
 using UnityEngine.UI; // UI interactions such as buttons
 
+
 public class GameManager : MonoBehaviour
 {
     private float spawnRate = .5f;
-    private int score;
     private WordImage currentImg;
 
-    public List<GameObject> targets;
+    //public List<GameObject> targets;
 
     public List<GameObject> wordImg;
 
-    //public GameObjects[] targets2; // using array
-    public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameOverText; // name same as in Unity editor
+    public TextMeshProUGUI timerText;
+    private bool stopWatchStart = false;
+    private float stopWatchTime = 0;
+
+    public TextMeshProUGUI countText;
+
+    private int wordCount;
+   
     public Button restartButton;
     public GameObject titleScreen; // ref to titlescreen game object
 
     public TMP_InputField playerInput; // input field **
 
     public bool isGameActive;
+
 
     //void Awake()
     //{
@@ -42,13 +49,21 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        //playerInput.onSubmit.AddListener(OnSubmitPlayerInput); // **
-        //playerInput.text = "";
+        wordCount = wordImg.Count + 1;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (stopWatchStart == true)
+        {
+            stopWatchTime += Time.deltaTime;
+
+            int minutes = Mathf.FloorToInt(stopWatchTime % 60);
+            int seconds = Mathf.FloorToInt(stopWatchTime % 60);
+            timerText.text = string.Format("{0:00}", minutes, seconds);
+        }
         
     }
 
@@ -61,10 +76,14 @@ public class GameManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(spawnRate); //pause for spawn rate
                 int index = Random.Range(0, wordImg.Count);
+                
+
                 if (!instantiated.Contains(index))
                 {
                     instantiated.Add(index);
                     Instantiate(wordImg[index]);
+                    wordCount--;
+                    UpdateCountText();
                 }
             }
             else
@@ -73,12 +92,6 @@ public class GameManager : MonoBehaviour
                 yield return new WaitForSeconds(0.1f);
             }
         }
-    }
-
-    public void UpdateScore(int scoreToAdd)  // public accessible in other classes
-    {
-        score += scoreToAdd;
-        scoreText.text = "Score: " + score;
     }
 
     public void GameOver()
@@ -97,18 +110,18 @@ public class GameManager : MonoBehaviour
     public void StartGame(int difficulty)
     {
         isGameActive = true;
-        score = 0;
-        //spawnRate = spawnRate / difficulty;  // 1 / easy(1) 1sec, med(2)= .5sec hard(3) = .33 sec
         spawnRate /= difficulty;
 
         StartCoroutine(SpawnImage());
-        UpdateScore(0);
 
         titleScreen.gameObject.SetActive(false);
         playerInput.gameObject.SetActive(true);
+
+        string deltaTime = Time.deltaTime.ToString();
+        timerText.text = deltaTime;
+        stopWatchStart = true;
     }
 
-    //**
     public void SetCurrentWordImage(WordImage wordImage)
     {
         currentImg = wordImage;  // Set the active img obj when it spawns
@@ -119,8 +132,23 @@ public class GameManager : MonoBehaviour
         if (currentImg != null && input.ToLower() == currentImg.word.ToLower())
         {
             Destroy(currentImg.gameObject); 
-            UpdateScore(5);  
-            playerInput.text = "";  
+           
+            playerInput.text = "";
+            wordCount--;
+
+            UpdateCountText();
         }
     }
+    private void UpdateCountText()
+    {
+        if (countText != null) // Ensure countText is assigned
+        {
+            countText.text = "Words Left: " + wordCount;
+        }
+        else
+        {
+            Debug.LogError("Count Text is not assigned.");
+        }
+    }
+
 }

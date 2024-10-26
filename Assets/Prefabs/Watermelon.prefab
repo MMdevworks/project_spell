@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e212358ab3eefd9409b55a097386dbb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  burstParticle: {fileID: 0}
+  burstParticle: {fileID: 5112437202714306363, guid: 7b4191607aae74c0ab244a8d6e48adbf, type: 3}
   prefab: {fileID: 0}
   word: watermelon
   playerInput: {fileID: 0}
