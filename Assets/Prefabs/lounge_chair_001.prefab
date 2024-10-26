@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c6c4229ba17e2e44a8c650fa2627f71c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.031
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c6c4229ba17e2e44a8c650fa2627f71c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -26,23 +26,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c6c4229ba17e2e44a8c650fa2627f71c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.97992474
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c6c4229ba17e2e44a8c650fa2627f71c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0.19936797
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c6c4229ba17e2e44a8c650fa2627f71c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c6c4229ba17e2e44a8c650fa2627f71c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c6c4229ba17e2e44a8c650fa2627f71c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -23
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c6c4229ba17e2e44a8c650fa2627f71c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e212358ab3eefd9409b55a097386dbb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  burstParticle: {fileID: 0}
+  burstParticle: {fileID: 6601538019107920666, guid: 70a1428e5f80a4866a779ef1ab9fe521, type: 3}
   prefab: {fileID: 0}
   word: chair
   playerInput: {fileID: 0}
