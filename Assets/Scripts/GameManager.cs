@@ -7,7 +7,7 @@ using UnityEngine.UI; // UI interactions such as buttons
 
 public class GameManager : MonoBehaviour
 {
-    private float spawnRate = 1.0f;
+    private float spawnRate = .5f;
     private int score;
     private WordImage currentImg;
 
@@ -52,14 +52,27 @@ public class GameManager : MonoBehaviour
         
     }
 
-    IEnumerator SpawnTarget()
+    IEnumerator SpawnImage() //methods to iterate over collection, return control to Unity temporarily
     {
-        while (true)
+        HashSet<int> instantiated = new HashSet<int>();
+        while (isGameActive)
         {
-            yield return new WaitForSeconds(spawnRate);
-            int index = Random.Range(0, targets.Count);
-            Instantiate(targets[index]);
-        } 
+            if (Object.FindFirstObjectByType<WordImage>() == null)
+            {
+                yield return new WaitForSeconds(spawnRate); //pause for spawn rate
+                int index = Random.Range(0, wordImg.Count);
+                if (!instantiated.Contains(index))
+                {
+                    instantiated.Add(index);
+                    Instantiate(wordImg[index]);
+                }
+            }
+            else
+            {
+                // Wait a short time before checking again to avoid an infinite fast loop
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
     }
 
     public void UpdateScore(int scoreToAdd)  // public accessible in other classes
@@ -88,7 +101,7 @@ public class GameManager : MonoBehaviour
         //spawnRate = spawnRate / difficulty;  // 1 / easy(1) 1sec, med(2)= .5sec hard(3) = .33 sec
         spawnRate /= difficulty;
 
-        StartCoroutine(SpawnTarget());
+        StartCoroutine(SpawnImage());
         UpdateScore(0);
 
         titleScreen.gameObject.SetActive(false);
