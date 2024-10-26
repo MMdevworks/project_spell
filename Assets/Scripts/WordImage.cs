@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Collections;
 using static UnityEngine.GraphicsBuffer;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class WordImage : MonoBehaviour
 {
     private GameManager gameManager;
     private Rigidbody imageRb;
-    public ParticleSystem burstParticle;
+    private EventSystem eventSystem; // reference to event system, handle input ui
 
+    public ParticleSystem burstParticle;
     public GameObject prefab;
     public string word;
 
@@ -31,7 +33,8 @@ public class WordImage : MonoBehaviour
         }
 
         gameManager.SetCurrentWordImage(this);
-        Debug.Log("Word assigned to this object: " + word);
+        Debug.Log("Word assigned to this object: " + word);  
+        playerInput.ActivateInputField(); // order matters
     }
 
 
@@ -50,7 +53,9 @@ public class WordImage : MonoBehaviour
             gameManager.UpdateScore(5);
         }
         playerInput.text = "";
-
+        playerInput.ActivateInputField();
+        playerInput.Select();
+        
     }
     private void OnDestroy()
     {

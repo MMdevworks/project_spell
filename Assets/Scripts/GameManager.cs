@@ -25,18 +25,18 @@ public class GameManager : MonoBehaviour
 
     public bool isGameActive;
 
-    void Awake()
-    {
-        playerInput = Object.FindFirstObjectByType<TMP_InputField>();
-        if (playerInput != null)
-        {
-            playerInput.onSubmit.AddListener(OnSubmitPlayerInput);
-        }
-        else
-        {
-            Debug.LogError("Player Input Field not found.");
-        }
-    }
+    //void Awake()
+    //{
+    //    playerInput = Object.FindFirstObjectByType<TMP_InputField>();
+    //    if (playerInput != null)
+    //    {
+    //        playerInput.onSubmit.AddListener(OnSubmitPlayerInput);
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("Player Input Field not found.");
+    //    }
+    //}
 
 
 
@@ -105,6 +105,7 @@ public class GameManager : MonoBehaviour
         UpdateScore(0);
 
         titleScreen.gameObject.SetActive(false);
+        playerInput.gameObject.SetActive(true);
     }
 
     //**
