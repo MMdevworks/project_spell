@@ -54,8 +54,10 @@ public class WordImage : MonoBehaviour
             Destroy(gameObject);
             Instantiate(burstParticle, transform.position, burstParticle.transform.rotation);
             Debug.Log("Correct!");
+            gameManager.wordCount--;
+            gameManager.UpdateCountText();
 
-            //gameManager.UpdateScore(5);
+
         }
         playerInput.text = "";
         playerInput.ActivateInputField();

@@ -8,7 +8,7 @@ using UnityEngine.UI; // UI interactions such as buttons
 
 public class GameManager : MonoBehaviour
 {
-    //private float spawnRate = .5f;
+    private float spawnRate = .1f;
     private WordImage currentImg;
 
     public List<GameObject> wordImg;
@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI countText;
 
-    private int wordCount;
+    public int wordCount;
    
     public Button restartButton;
     public GameObject titleScreen; // ref to titlescreen game object
@@ -30,11 +30,13 @@ public class GameManager : MonoBehaviour
 
     public bool isGameActive;
     //private HashSet<int> instantiated = new HashSet<int>();
-
+    private int gameEndCounter;
 
     void Start()
     {
         wordCount = wordImg.Count;
+        UpdateCountText();
+        gameEndCounter = -1;
     }
 
     void Update()
@@ -71,7 +73,7 @@ public class GameManager : MonoBehaviour
         {
             if (Object.FindFirstObjectByType<WordImage>() == null)
             {
-                //yield return new WaitForSeconds(spawnRate); //pause for spawn rate
+                yield return new WaitForSeconds(spawnRate); //pause for spawn rate
                 int index = Random.Range(0, wordImg.Count);
                 
 
@@ -79,8 +81,6 @@ public class GameManager : MonoBehaviour
                 {
                     instantiated.Add(index);
                     Instantiate(wordImg[index]);
-                    wordCount--;
-                    UpdateCountText();
                 }
             }
             else
@@ -109,30 +109,17 @@ public class GameManager : MonoBehaviour
         currentImg = wordImage;  // Set the active img obj when it spawns
     }
 
-    public void OnSubmitPlayerInput(string input)
+    public void UpdateCountText()
     {
-        //Debug.Log("Input submitted!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + input);
-        if (currentImg != null && input.ToLower() == currentImg.word.ToLower())
-        {
-            Destroy(currentImg.gameObject); 
-           
-            playerInput.text = "";
-        }
-    }
-    private void UpdateCountText()
-    {
-        Debug.Log("this is word count!!!!!!!!! " + wordCount);
+        //Debug.Log("this is word count!!!!!!!!! " + wordCount);
         if (countText != null) 
         {
             countText.text = "Words Left: " + wordCount;
         }
-        else
-        {
-            Debug.LogError("Count Text is not assigned.");
-        }
 
-        if (wordCount < 0 && currentImg == null && isGameActive == true) 
-        {          
+        if (wordCount == 0)
+        {
+            Debug.Log("GAME END COUNTER  EQUALS WORDIMAGE COUNT WHICH SHOULD BE 4");
             GameOver();
         }
     }

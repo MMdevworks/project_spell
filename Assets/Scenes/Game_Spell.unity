@@ -150,12 +150,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wordImg:
   - {fileID: 2790789897829511499, guid: e042f1dc9524bbe4583bd65d32111ce3, type: 3}
-  - {fileID: 3783348963255051456, guid: 55d87429c06bbd443b521f16a273408c, type: 3}
-  - {fileID: 4565630548374157495, guid: a7f59fdb0cdfce74bb94a530baf14c5c, type: 3}
   - {fileID: 3950904343811469527, guid: 8f902734ed68649419eaeeae0460fd3e, type: 3}
   - {fileID: 4470574944186423787, guid: 71e4380f8d3e9bf498b5eeb78a367b2e, type: 3}
-  - {fileID: 1846304007134183261, guid: e70d7e885a70b8a4db7c70c6ce841fb3, type: 3}
-  - {fileID: 6208498210641234568, guid: 03c3fdc3f1149db439718a538f1477d7, type: 3}
   - {fileID: 3746177702323218703, guid: e864a15a0a2484b4a8e0c768962b61e9, type: 3}
   gameOverText: {fileID: 942999552}
   timerText: {fileID: 1934734871}
@@ -2685,7 +2681,19 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 107053197}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: OnSubmitPlayerInput
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
