@@ -7,7 +7,7 @@ public class SceneMenu : MonoBehaviour
 
     public Button pauseButton;
     public Button returnButton;
-    public Button unpauseButton;
+    //public Button unpauseButton;
     public GameObject pauseMenu;
    
     private GameManager gameManager;
@@ -16,9 +16,9 @@ public class SceneMenu : MonoBehaviour
     {
 
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
-
+      
         pauseButton.onClick.AddListener(PauseScene);
-        unpauseButton.onClick.AddListener(UnPauseScene);
+        //unpauseButton.onClick.AddListener(UnPauseScene);
         returnButton.onClick.AddListener(ReturnHome);
     }
 
@@ -34,22 +34,40 @@ public class SceneMenu : MonoBehaviour
         if (pauseText.text == "Pause")
         {
             pauseMenu.SetActive(true);
+
+            gameManager.stopWatchStart = false;
+
             pauseText.text = "Resume";
+            //Vector3 btnpos = pauseButton.transform.position;
+            // set relative to parent element; transorm.position moved relative to world space
+            RectTransform buttonRect = pauseButton.GetComponent<RectTransform>();
+            if (buttonRect != null)
+            {
+                buttonRect.anchoredPosition = new Vector2(0f, -164f);  
+            }
         }
 
         else if (pauseText.text == "Resume")
         {
             pauseMenu.SetActive(false);
             pauseText.text = "Pause";
+
+            gameManager.stopWatchStart = true;
+
+            RectTransform buttonRect = pauseButton.GetComponent<RectTransform>();
+            if (buttonRect != null)
+            {
+                buttonRect.anchoredPosition = new Vector2(462f, -164f);  
+            }
         }
 
     }
 
-    public void UnPauseScene()
-    {
-        pauseMenu.SetActive(false);
+    //public void UnPauseScene()
+    //{
+    //    pauseMenu.SetActive(false);
         
-    }
+    //}
 
     private void ReturnHome()
     {
