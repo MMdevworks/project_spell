@@ -34,8 +34,8 @@ public class SceneMenu : MonoBehaviour
         if (pauseText.text == "Pause")
         {
             pauseMenu.SetActive(true);
-
             gameManager.stopWatchStart = false;
+            gameManager.playerInput.gameObject.SetActive(false);
 
             pauseText.text = "Resume";
             //Vector3 btnpos = pauseButton.transform.position;
@@ -53,6 +53,8 @@ public class SceneMenu : MonoBehaviour
             pauseText.text = "Pause";
 
             gameManager.stopWatchStart = true;
+            gameManager.playerInput.gameObject.SetActive(true);
+            gameManager.playerInput.ActivateInputField();
 
             RectTransform buttonRect = pauseButton.GetComponent<RectTransform>();
             if (buttonRect != null)
