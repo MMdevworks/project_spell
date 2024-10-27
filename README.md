@@ -12,7 +12,7 @@ Game End
 
 Menu
 
-Scene Change
+[x] Scene Change
 
 Toggle opts
 

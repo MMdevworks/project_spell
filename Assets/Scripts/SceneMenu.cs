@@ -65,15 +65,9 @@ public class SceneMenu : MonoBehaviour
 
     }
 
-    //public void UnPauseScene()
-    //{
-    //    pauseMenu.SetActive(false);
-        
-    //}
-
     private void ReturnHome()
     {
-        //load scene
+        SceneManager.LoadScene("Game_Hub");
     }
 
 
