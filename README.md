@@ -10,7 +10,7 @@
 
 Game End 
 
-Menu
+Menu - instructions 
 
 [x] Scene Change
 

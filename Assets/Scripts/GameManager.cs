@@ -8,10 +8,8 @@ using UnityEngine.UI; // UI interactions such as buttons
 
 public class GameManager : MonoBehaviour
 {
-    private float spawnRate = .5f;
+    //private float spawnRate = .5f;
     private WordImage currentImg;
-
-    //public List<GameObject> targets;
 
     public List<GameObject> wordImg;
 
@@ -31,30 +29,14 @@ public class GameManager : MonoBehaviour
     public TMP_InputField playerInput; // input field **
 
     public bool isGameActive;
-
-
-    //void Awake()
-    //{
-    //    playerInput = Object.FindFirstObjectByType<TMP_InputField>();
-    //    if (playerInput != null)
-    //    {
-    //        playerInput.onSubmit.AddListener(OnSubmitPlayerInput);
-    //    }
-    //    else
-    //    {
-    //        Debug.LogError("Player Input Field not found.");
-    //    }
-    //}
-
+    //private HashSet<int> instantiated = new HashSet<int>();
 
 
     void Start()
     {
-        wordCount = wordImg.Count + 1;
-
+        wordCount = wordImg.Count;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (stopWatchStart == true)
@@ -66,15 +48,30 @@ public class GameManager : MonoBehaviour
             timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         }
     }
+    public void StartGame()
+    {
+        isGameActive = true;
+        staticUI.gameObject.SetActive(true);
+
+        StartCoroutine(SpawnImage());
+
+        titleScreen.gameObject.SetActive(false);
+        playerInput.gameObject.SetActive(true);
+
+        string deltaTime = Time.deltaTime.ToString();
+        timerText.text = deltaTime;
+        stopWatchStart = true;
+    }
 
     IEnumerator SpawnImage() //methods to iterate over collection, return control to Unity temporarily
     {
         HashSet<int> instantiated = new HashSet<int>();
+        
         while (isGameActive)
         {
             if (Object.FindFirstObjectByType<WordImage>() == null)
             {
-                yield return new WaitForSeconds(spawnRate); //pause for spawn rate
+                //yield return new WaitForSeconds(spawnRate); //pause for spawn rate
                 int index = Random.Range(0, wordImg.Count);
                 
 
@@ -107,22 +104,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // can pass in scene name or use method
     }
 
-    public void StartGame()
-    {
-        isGameActive = true;
-        staticUI.gameObject.SetActive(true);
-        //spawnRate /= difficulty;
-
-        StartCoroutine(SpawnImage());
-
-        titleScreen.gameObject.SetActive(false);
-        playerInput.gameObject.SetActive(true);
-
-        string deltaTime = Time.deltaTime.ToString();
-        timerText.text = deltaTime;
-        stopWatchStart = true;
-    }
-
     public void SetCurrentWordImage(WordImage wordImage)
     {
         currentImg = wordImage;  // Set the active img obj when it spawns
@@ -130,19 +111,18 @@ public class GameManager : MonoBehaviour
 
     public void OnSubmitPlayerInput(string input)
     {
+        //Debug.Log("Input submitted!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + input);
         if (currentImg != null && input.ToLower() == currentImg.word.ToLower())
         {
             Destroy(currentImg.gameObject); 
            
             playerInput.text = "";
-            wordCount--;
-
-            UpdateCountText();
         }
     }
     private void UpdateCountText()
     {
-        if (countText != null) // Ensure countText is assigned
+        Debug.Log("this is word count!!!!!!!!! " + wordCount);
+        if (countText != null) 
         {
             countText.text = "Words Left: " + wordCount;
         }
@@ -150,6 +130,22 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("Count Text is not assigned.");
         }
-    }
 
+        if (wordCount < 0 && currentImg == null && isGameActive == true) 
+        {          
+            GameOver();
+        }
+    }
 }
+//void Awake()
+//{
+//    playerInput = Object.FindFirstObjectByType<TMP_InputField>();
+//    if (playerInput != null)
+//    {
+//        playerInput.onSubmit.AddListener(OnSubmitPlayerInput);
+//    }
+//    else
+//    {
+//        Debug.LogError("Player Input Field not found.");
+//    }
+//}
