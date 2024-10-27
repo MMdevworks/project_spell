@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
    
     public Button restartButton;
     public GameObject titleScreen; // ref to titlescreen game object
+    public GameObject staticUI;
 
     public TMP_InputField playerInput; // input field **
 
@@ -106,10 +107,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // can pass in scene name or use method
     }
 
-    public void StartGame(int difficulty)
+    public void StartGame()
     {
         isGameActive = true;
-        spawnRate /= difficulty;
+        staticUI.gameObject.SetActive(true);
+        //spawnRate /= difficulty;
 
         StartCoroutine(SpawnImage());
 

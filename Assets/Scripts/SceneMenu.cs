@@ -43,7 +43,7 @@ public class SceneMenu : MonoBehaviour
             RectTransform buttonRect = pauseButton.GetComponent<RectTransform>();
             if (buttonRect != null)
             {
-                buttonRect.anchoredPosition = new Vector2(0f, -164f);  
+                buttonRect.anchoredPosition = new Vector3(138f, -61f, -13.7f);  
             }
         }
 
