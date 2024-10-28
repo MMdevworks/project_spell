@@ -1,0 +1,34 @@
+{
+    "name": "KeyboardActions",
+    "maps": [
+        {
+            "name": "AlphabetActions",
+            "id": "571ca218-2c3c-4650-8bcf-6f442168b75b",
+            "actions": [
+                {
+                    "name": "DestroyLetter",
+                    "type": "Button",
+                    "id": "c324efd2-4f0b-4525-97aa-626e31310c52",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3e51f57e-8809-4d24-8307-3c910905d160",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DestroyLetter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

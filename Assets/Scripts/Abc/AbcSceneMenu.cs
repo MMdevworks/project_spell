@@ -38,7 +38,6 @@ public class AbcSceneMenu : MonoBehaviour
 
 
             pauseMenu.SetActive(true);
-            abcManager.stopWatchStart = false;
             abcManager.playerInput.gameObject.SetActive(false);
 
             pauseText.text = "Resume";
@@ -56,7 +55,6 @@ public class AbcSceneMenu : MonoBehaviour
             pauseMenu.SetActive(false);
             pauseText.text = "Pause";
 
-            abcManager.stopWatchStart = true;
             abcManager.playerInput.gameObject.SetActive(true);
             abcManager.playerInput.ActivateInputField();
 

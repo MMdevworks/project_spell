@@ -153,3 +153,20 @@ MonoBehaviour:
   prefab: {fileID: 0}
   word: a
   playerInput: {fileID: 0}
+  alpakey:
+    m_Name: Alpakey
+    m_Type: 0
+    m_ExpectedControlType: Button
+    m_Id: 85a0a8ae-a23c-48c7-af72-d0837cc6d569
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: f00d23c0-24d9-48f8-a90b-9a9020b59a43
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Alpakey
+      m_Flags: 0
+    m_Flags: 0

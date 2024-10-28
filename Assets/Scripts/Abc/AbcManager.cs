@@ -12,26 +12,25 @@ public class AbcManager : MonoBehaviour
 
     public List<GameObject> abcImg;
 
-    public TextMeshProUGUI gameOverText; // name same as in Unity editor
+    public TextMeshProUGUI gameOverText; 
     public TextMeshProUGUI getReadyText;
 
     public TextMeshProUGUI timerText;
-    public bool stopWatchStart = false;
-    //private float stopWatchTime = 0;
+
 
     public TextMeshProUGUI countText;
 
     public int wordCount;
 
     public Button restartButton;
-    public GameObject titleScreen; // ref to titlescreen game object
+    public GameObject titleScreen; 
     public GameObject staticUI;
 
-    public TMP_InputField playerInput; // input field **
+    public TMP_InputField playerInput; 
 
     public bool isGameActive;
 
-    public TextMeshProUGUI textField; // Assign this in the Unity Inspector
+    public TextMeshProUGUI textField; 
     private float timer = 0f;
     public float changeDuration = 2f; 
     private bool textChanged = false;
@@ -39,11 +38,6 @@ public class AbcManager : MonoBehaviour
 
     void Start()
     {
-
-        //wordCount = abcImg.Count;
-        //UpdateCountText();
-
-
     }
 
     void Update()
@@ -66,15 +60,6 @@ public class AbcManager : MonoBehaviour
                 StartGame();
             }
         }
-
-        //if (stopWatchStart == true)
-        //{
-        //    stopWatchTime += Time.deltaTime;
-
-        //    int minutes = Mathf.FloorToInt(stopWatchTime / 60);
-        //    int seconds = Mathf.FloorToInt(stopWatchTime % 60);
-        //    timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-        //}
     }
     public void StartGame()
     {
@@ -85,11 +70,6 @@ public class AbcManager : MonoBehaviour
         playerInput.gameObject.SetActive(true);
 
         StartCoroutine(SpawnImage());
-
-
-        //string deltaTime = Time.deltaTime.ToString();
-        //timerText.text = deltaTime;
-        //stopWatchStart = true;
     }
 
     IEnumerator SpawnImage() //methods to iterate over collection, return control to Unity temporarily
@@ -107,9 +87,7 @@ public class AbcManager : MonoBehaviour
     }
 
     public void GameOver()
-    {
-        // get text, restart and show it 
-        stopWatchStart = false;
+    { 
         restartButton.gameObject.SetActive(true);
         gameOverText.gameObject.SetActive(true);
         isGameActive = false;

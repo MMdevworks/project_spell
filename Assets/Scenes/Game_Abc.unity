@@ -179,9 +179,7 @@ MonoBehaviour:
   playerInput: {fileID: 1682926931}
   isGameActive: 0
   textField: {fileID: 0}
-  changeDuration1: 2
-  changeDuration2: 4
-  changeDuration3: 5
+  changeDuration: 2
 --- !u!1 &138383908
 GameObject:
   m_ObjectHideFlags: 0
@@ -2082,7 +2080,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1310413242
 Transform:
   m_ObjectHideFlags: 0
@@ -2120,7 +2118,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1379555192
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3323,7 +3321,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1934734870
 RectTransform:
   m_ObjectHideFlags: 0

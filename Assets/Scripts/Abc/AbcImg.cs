@@ -1,6 +1,8 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+
 public class AbcImg : MonoBehaviour
 {
     private AbcManager abcManager;
@@ -11,35 +13,38 @@ public class AbcImg : MonoBehaviour
     public GameObject prefab;
     public string word;
 
-    public TMP_InputField playerInput;
+    //public TMP_InputField playerInput;
     private float minSpeed = 12;
     private float maxSpeed = 16;
     private float maxTorque = 10;
     //private float xRange = 0;
     //private float ySpawnPos = 0;
+    public KeyboardActions alpakey;
 
-        void Start()
+    void Awake()
+        {
+            alpakey = new KeyboardActions();
+            alpakey.AlphabetActions.DestroyLetter.performed += OnSubmitPlayerInput;
+        }
+    void Start()
         {
             letterRb = GetComponent<Rigidbody>();
             abcManager = GameObject.Find("Abc Manager").GetComponent<AbcManager>();
 
-            playerInput = Object.FindFirstObjectByType<TMP_InputField>();
-            if (playerInput != null)
-            {
-                playerInput.onSubmit.AddListener(OnSubmitPlayerInput);
-            }
-            else
-            {
-                Debug.LogError("Player Input Field not found.");
-            }
+            //playerInput = Object.FindFirstObjectByType<TMP_InputField>();
+            //if (playerInput != null)
+            //{
+            //    playerInput.onSubmit.AddListener((input) => OnSubmitPlayerInput);
+            //}
+            //else
+            //{
+            //    Debug.LogError("Player Input Field not found.");
+            //}
 
             abcManager.SetCurrentAbcImage(this);
             Debug.Log("Word assigned to this object: " + word);
-            playerInput.ActivateInputField(); // order matters
+            //playerInput.ActivateInputField();
 
-
-            //gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
-            //a above line wasnt working, had to add below
             GameObject gameManagerObject = GameObject.Find("Abc Manager");
             if (gameManagerObject != null)
             {
@@ -53,7 +58,6 @@ public class AbcImg : MonoBehaviour
             {
                 Debug.LogError("Game Manager object not found");
             }
-
 
             letterRb.AddForce(RandomForce(), ForceMode.Impulse);
             letterRb.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(), ForceMode.Impulse);
@@ -86,24 +90,33 @@ public class AbcImg : MonoBehaviour
 
 
 
-    public void OnSubmitPlayerInput(string input)
+    //public void OnSubmitPlayerInput(string input)
+    //{
+    //    if (input.ToLower() == word.ToLower())
+    //    {
+    //        Destroy(gameObject);
+    //        Instantiate(burstParticle, transform.position, burstParticle.transform.rotation);
+    //        Debug.Log("Correct!");
+    //        //abcManager.wordCount--;
+    //        abcManager.UpdateCountText();
+    //    }
+    //    playerInput.text = "";
+    //    playerInput.ActivateInputField();
+    //    playerInput.Select();
+
+    //}
+
+    public void OnSubmitPlayerInput(InputAction.CallbackContext context)
     {
-        if (input.ToLower() == word.ToLower())
+        string keyPressed = context.control.displayName.ToLower(); // captures the key as a string                                                               
         {
             Destroy(gameObject);
-            Instantiate(burstParticle, transform.position, burstParticle.transform.rotation);
-            Debug.Log("Correct!");
-            abcManager.wordCount--;
-            abcManager.UpdateCountText();
         }
-        playerInput.text = "";
-        playerInput.ActivateInputField();
-        playerInput.Select();
-
     }
+
     private void OnDestroy()
     {
         // Remove the listener when the object is destroyed to avoid memory leaks
-        playerInput.onSubmit.RemoveListener(OnSubmitPlayerInput);
+        //playerInput.onSubmit.RemoveListener(OnSubmitPlayerInput);
     }
 }
