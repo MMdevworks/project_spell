@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class AbcManager : MonoBehaviour
 {
-    private float spawnRate = .1f;
+    private float spawnRate = 2f;
     private AbcImg currentImg;
 
     public List<GameObject> abcImg;
@@ -17,7 +17,7 @@ public class AbcManager : MonoBehaviour
 
     public TextMeshProUGUI timerText;
     public bool stopWatchStart = false;
-    private float stopWatchTime = 0;
+    //private float stopWatchTime = 0;
 
     public TextMeshProUGUI countText;
 
@@ -33,11 +33,7 @@ public class AbcManager : MonoBehaviour
 
     public TextMeshProUGUI textField; // Assign this in the Unity Inspector
     private float timer = 0f;
-    public float changeDuration1 = 2f; 
-    public float changeDuration2 = 4f; 
-    public float changeDuration3 = 5f;
-    private int textChangeStage = 0;
-
+    public float changeDuration = 2f; 
     private bool textChanged = false;
 
 
@@ -57,14 +53,17 @@ public class AbcManager : MonoBehaviour
         {
             timer += Time.deltaTime;
 
-            if (timer >= changeDuration1 && timer <changeDuration2)
+            if (timer >= changeDuration && timer < changeDuration +2)
             {
                 getReadyText.text = "Go!";
             }
-            if (timer >= changeDuration2 && timer < changeDuration3)
+            if (timer >= changeDuration+2 && timer < changeDuration + 4)
             {    
                 titleScreen.gameObject.SetActive(false);
-                textChanged = true; 
+                staticUI.gameObject.SetActive(true);
+
+                textChanged = true;
+                StartGame();
             }
         }
 
@@ -79,42 +78,31 @@ public class AbcManager : MonoBehaviour
     }
     public void StartGame()
     {
+
         isGameActive = true;
         staticUI.gameObject.SetActive(true);
-
-        StartCoroutine(SpawnImage());
-
         titleScreen.gameObject.SetActive(false);
         playerInput.gameObject.SetActive(true);
 
-        string deltaTime = Time.deltaTime.ToString();
-        timerText.text = deltaTime;
-        stopWatchStart = true;
+        StartCoroutine(SpawnImage());
+
+
+        //string deltaTime = Time.deltaTime.ToString();
+        //timerText.text = deltaTime;
+        //stopWatchStart = true;
     }
 
     IEnumerator SpawnImage() //methods to iterate over collection, return control to Unity temporarily
     {
-        HashSet<int> instantiated = new HashSet<int>();
+        //HashSet<int> instantiated = new HashSet<int>();
 
         while (isGameActive)
         {
-            if (Object.FindFirstObjectByType<AbcImg>() == null)
-            {
                 yield return new WaitForSeconds(spawnRate); //pause for spawn rate
                 int index = Random.Range(0, abcImg.Count);
 
-
-                if (!instantiated.Contains(index))
-                {
-                    instantiated.Add(index);
-                    Instantiate(abcImg[index]);
-                }
-            }
-            else
-            {
-                // Wait a short time before checking again to avoid an infinite fast loop
-                yield return new WaitForSeconds(0.1f);
-            }
+                Instantiate(abcImg[index]);
+ 
         }
     }
 
