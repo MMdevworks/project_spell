@@ -8,9 +8,9 @@
 
 [x] Timer
 
-Game End 
+[x] Game End 
 
-Menu - instructions 
+[x] Menu - instructions 
 
 [x] Scene Change
 

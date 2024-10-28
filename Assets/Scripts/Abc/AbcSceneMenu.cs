@@ -2,26 +2,27 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
-public class SceneMenu : MonoBehaviour
+
+public class AbcSceneMenu : MonoBehaviour
 {
 
     public Button pauseButton;
     public Button returnButton;
     public GameObject pauseMenu;
-   
-    private GameManager gameManager;
+
+    private AbcManager abcManager;
 
     void Start()
     {
-        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
-        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        abcManager = GameObject.Find("Abc Manager").GetComponent<AbcManager>();
+        abcManager = GameObject.Find("Abc Manager").GetComponent<AbcManager>();
         pauseButton.onClick.AddListener(PauseScene);
         returnButton.onClick.AddListener(ReturnHome);
     }
 
     void Update()
     {
-        
+
     }
 
     public void PauseScene()
@@ -30,15 +31,15 @@ public class SceneMenu : MonoBehaviour
 
         if (pauseText.text == "Pause")
         {
-            if (gameManager.gameOverText != null)
+            if (abcManager.gameOverText != null)
             {
-                gameManager.gameOverText.gameObject.SetActive(false);
+                abcManager.gameOverText.gameObject.SetActive(false);
             }
 
 
             pauseMenu.SetActive(true);
-            gameManager.stopWatchStart = false;
-            gameManager.playerInput.gameObject.SetActive(false);
+            abcManager.stopWatchStart = false;
+            abcManager.playerInput.gameObject.SetActive(false);
 
             pauseText.text = "Resume";
 
@@ -46,7 +47,7 @@ public class SceneMenu : MonoBehaviour
             RectTransform buttonRect = pauseButton.GetComponent<RectTransform>();
             if (buttonRect != null)
             {
-                buttonRect.anchoredPosition = new Vector3(138f, -61f, -13.7f);  
+                buttonRect.anchoredPosition = new Vector3(138f, -61f, -13.7f);
             }
         }
 
@@ -55,14 +56,14 @@ public class SceneMenu : MonoBehaviour
             pauseMenu.SetActive(false);
             pauseText.text = "Pause";
 
-            gameManager.stopWatchStart = true;
-            gameManager.playerInput.gameObject.SetActive(true);
-            gameManager.playerInput.ActivateInputField();
+            abcManager.stopWatchStart = true;
+            abcManager.playerInput.gameObject.SetActive(true);
+            abcManager.playerInput.ActivateInputField();
 
             RectTransform buttonRect = pauseButton.GetComponent<RectTransform>();
             if (buttonRect != null)
             {
-                buttonRect.anchoredPosition = new Vector2(462f, -164f);  
+                buttonRect.anchoredPosition = new Vector2(462f, -164f);
             }
         }
 

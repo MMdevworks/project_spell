@@ -1,13 +1,9 @@
 using UnityEngine;
-using System.Collections.Generic;
-using System.Collections;
-using static UnityEngine.GraphicsBuffer;
 using TMPro;
 using UnityEngine.EventSystems;
-
-public class WordImage : MonoBehaviour
+public class AbcImg : MonoBehaviour
 {
-    private GameManager gameManager;
+    private AbcManager abcManager;
     private Rigidbody imageRb;
     private EventSystem eventSystem; // reference to event system, handle input ui
 
@@ -20,8 +16,8 @@ public class WordImage : MonoBehaviour
     void Start()
     {
         imageRb = GetComponent<Rigidbody>();
-        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
-        
+        abcManager = GameObject.Find("Abc Manager").GetComponent<AbcManager>();
+
         playerInput = Object.FindFirstObjectByType<TMP_InputField>();
         if (playerInput != null)
         {
@@ -32,8 +28,8 @@ public class WordImage : MonoBehaviour
             Debug.LogError("Player Input Field not found.");
         }
 
-        gameManager.SetCurrentWordImage(this);
-        Debug.Log("Word assigned to this object: " + word);  
+        abcManager.SetCurrentAbcImage(this);
+        Debug.Log("Word assigned to this object: " + word);
         playerInput.ActivateInputField(); // order matters
     }
 
@@ -52,13 +48,13 @@ public class WordImage : MonoBehaviour
             Destroy(gameObject);
             Instantiate(burstParticle, transform.position, burstParticle.transform.rotation);
             Debug.Log("Correct!");
-            gameManager.wordCount--;
-            gameManager.UpdateCountText();
+            abcManager.wordCount--;
+            abcManager.UpdateCountText();
         }
         playerInput.text = "";
         playerInput.ActivateInputField();
         playerInput.Select();
-        
+
     }
     private void OnDestroy()
     {

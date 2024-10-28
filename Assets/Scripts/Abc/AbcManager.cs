@@ -1,19 +1,20 @@
-using UnityEngine; //
-using UnityEngine.SceneManagement; // interact and manage scenes
-using System.Collections.Generic; //
-using System.Collections; // 
-using TMPro; //
-using UnityEngine.UI; // UI interactions such as buttons
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections.Generic; 
+using System.Collections;
+using TMPro;
+using UnityEngine.UI;
 
-
-public class GameManager : MonoBehaviour
+public class AbcManager : MonoBehaviour
 {
     private float spawnRate = .1f;
-    private WordImage currentImg;
+    private AbcImg currentImg;
 
-    public List<GameObject> wordImg;
+    public List<GameObject> abcImg;
 
     public TextMeshProUGUI gameOverText; // name same as in Unity editor
+    public TextMeshProUGUI getReadyText;
+
     public TextMeshProUGUI timerText;
     public bool stopWatchStart = false;
     private float stopWatchTime = 0;
@@ -21,7 +22,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI countText;
 
     public int wordCount;
-   
+
     public Button restartButton;
     public GameObject titleScreen; // ref to titlescreen game object
     public GameObject staticUI;
@@ -29,24 +30,52 @@ public class GameManager : MonoBehaviour
     public TMP_InputField playerInput; // input field **
 
     public bool isGameActive;
-    //private HashSet<int> instantiated = new HashSet<int>();
+
+    public TextMeshProUGUI textField; // Assign this in the Unity Inspector
+    private float timer = 0f;
+    public float changeDuration1 = 2f; 
+    public float changeDuration2 = 4f; 
+    public float changeDuration3 = 5f;
+    private int textChangeStage = 0;
+
+    private bool textChanged = false;
+
 
     void Start()
     {
-        wordCount = wordImg.Count;
-        UpdateCountText();
+
+        //wordCount = abcImg.Count;
+        //UpdateCountText();
+
+
     }
 
     void Update()
     {
-        if (stopWatchStart == true)
-        {
-            stopWatchTime += Time.deltaTime;
 
-            int minutes = Mathf.FloorToInt(stopWatchTime / 60);
-            int seconds = Mathf.FloorToInt(stopWatchTime % 60);
-            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        if (!textChanged)
+        {
+            timer += Time.deltaTime;
+
+            if (timer >= changeDuration1 && timer <changeDuration2)
+            {
+                getReadyText.text = "Go!";
+            }
+            if (timer >= changeDuration2 && timer < changeDuration3)
+            {    
+                titleScreen.gameObject.SetActive(false);
+                textChanged = true; 
+            }
         }
+
+        //if (stopWatchStart == true)
+        //{
+        //    stopWatchTime += Time.deltaTime;
+
+        //    int minutes = Mathf.FloorToInt(stopWatchTime / 60);
+        //    int seconds = Mathf.FloorToInt(stopWatchTime % 60);
+        //    timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        //}
     }
     public void StartGame()
     {
@@ -66,19 +95,19 @@ public class GameManager : MonoBehaviour
     IEnumerator SpawnImage() //methods to iterate over collection, return control to Unity temporarily
     {
         HashSet<int> instantiated = new HashSet<int>();
-        
+
         while (isGameActive)
         {
-            if (Object.FindFirstObjectByType<WordImage>() == null)
+            if (Object.FindFirstObjectByType<AbcImg>() == null)
             {
                 yield return new WaitForSeconds(spawnRate); //pause for spawn rate
-                int index = Random.Range(0, wordImg.Count);
-                
+                int index = Random.Range(0, abcImg.Count);
+
 
                 if (!instantiated.Contains(index))
                 {
                     instantiated.Add(index);
-                    Instantiate(wordImg[index]);
+                    Instantiate(abcImg[index]);
                 }
             }
             else
@@ -103,15 +132,15 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // can pass in scene name or use method
     }
 
-    public void SetCurrentWordImage(WordImage wordImage)
+    public void SetCurrentAbcImage(AbcImg abcImage)
     {
-        currentImg = wordImage;  // Set the active img obj when it spawns
+        currentImg = abcImage;  // Set the active img obj when it spawns
     }
 
     public void UpdateCountText()
     {
         //Debug.Log("this is word count!!!!!!!!! " + wordCount);
-        if (countText != null) 
+        if (countText != null)
         {
             countText.text = "Words Left: " + wordCount;
         }
@@ -123,15 +152,3 @@ public class GameManager : MonoBehaviour
         }
     }
 }
-//void Awake()
-//{
-//    playerInput = Object.FindFirstObjectByType<TMP_InputField>();
-//    if (playerInput != null)
-//    {
-//        playerInput.onSubmit.AddListener(OnSubmitPlayerInput);
-//    }
-//    else
-//    {
-//        Debug.LogError("Player Input Field not found.");
-//    }
-//}
