@@ -18,15 +18,12 @@ public class AbcManager : MonoBehaviour
     public TextMeshProUGUI timerText;
 
 
-    public TextMeshProUGUI countText;
-
-    public int wordCount;
+    public TextMeshProUGUI scoreText;
+    public int score = 0;
 
     public Button restartButton;
     public GameObject titleScreen; 
     public GameObject staticUI;
-
-    public TMP_InputField playerInput; 
 
     public bool isGameActive;
 
@@ -67,15 +64,12 @@ public class AbcManager : MonoBehaviour
         isGameActive = true;
         staticUI.gameObject.SetActive(true);
         titleScreen.gameObject.SetActive(false);
-        playerInput.gameObject.SetActive(true);
 
         StartCoroutine(SpawnImage());
     }
 
-    IEnumerator SpawnImage() //methods to iterate over collection, return control to Unity temporarily
+    IEnumerator SpawnImage()
     {
-        //HashSet<int> instantiated = new HashSet<int>();
-
         while (isGameActive)
         {
                 yield return new WaitForSeconds(spawnRate); //pause for spawn rate
@@ -103,18 +97,8 @@ public class AbcManager : MonoBehaviour
         currentImg = abcImage;  // Set the active img obj when it spawns
     }
 
-    public void UpdateCountText()
+    public void UpdateScoreText()
     {
-        //Debug.Log("this is word count!!!!!!!!! " + wordCount);
-        if (countText != null)
-        {
-            countText.text = "Words Left: " + wordCount;
-        }
-
-        if (wordCount == 0)
-        {
-            Debug.Log("GAME END COUNTER  EQUALS WORDIMAGE COUNT WHICH SHOULD BE 4");
-            GameOver();
-        }
+        scoreText.text = "Score: " + score;
     }
 }

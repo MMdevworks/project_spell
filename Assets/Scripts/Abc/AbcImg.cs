@@ -25,6 +25,7 @@ public class AbcImg : MonoBehaviour
             alpakey = new KeyboardActions();
             alpakey.AlphabetActions.DestroyLetter.performed += OnSubmitPlayerInput;
         }
+
     void Start()
         {
             alpakey.Enable();
@@ -51,18 +52,16 @@ public class AbcImg : MonoBehaviour
             letterRb.AddForce(RandomForce(), ForceMode.Impulse);
             letterRb.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(), ForceMode.Impulse);
             transform.position = RandomSpawnPos();
+    }
 
-
-        }
-
-        Vector3 RandomForce()
-        {
-            return Vector3.up * Random.Range(minSpeed, maxSpeed);
-        }
-        float RandomTorque()
-        {
-            return Random.Range(-maxTorque, maxTorque);
-        }
+    Vector3 RandomForce()
+    {
+        return Vector3.up * Random.Range(minSpeed, maxSpeed);
+    }
+    float RandomTorque()
+    {
+        return Random.Range(-maxTorque, maxTorque);
+    }
 
     Vector3 RandomSpawnPos()
     {
@@ -84,13 +83,13 @@ public class AbcImg : MonoBehaviour
         Debug.Log("Key Pressed: " + keyPressed);
 
         // Compare with the object's letter (word)
-        if (keyPressed == word.ToLower()) // Check if it matches the object's word
+        if (keyPressed == word.ToLower()) 
         {
             Destroy(gameObject);
             Instantiate(burstParticle, transform.position, burstParticle.transform.rotation);
             Debug.Log("Correct!");
-            //abcManager.wordCount--;
-            //abcManager.UpdateCountText();
+            abcManager.score += 10;
+            abcManager.UpdateScoreText();
         }
     }
 
@@ -98,8 +97,6 @@ public class AbcImg : MonoBehaviour
     {
         if (alpakey != null)
         {
-            // Remove the listener when the object is destroyed to avoid memory leaks
-            //playerInput.onSubmit.RemoveListener(OnSubmitPlayerInput);
             alpakey.AlphabetActions.DestroyLetter.performed -= OnSubmitPlayerInput;
             alpakey.AlphabetActions.Disable();
         }

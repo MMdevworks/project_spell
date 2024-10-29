@@ -38,7 +38,6 @@ public class AbcSceneMenu : MonoBehaviour
 
 
             pauseMenu.SetActive(true);
-            abcManager.playerInput.gameObject.SetActive(false);
 
             pauseText.text = "Resume";
 
@@ -54,9 +53,6 @@ public class AbcSceneMenu : MonoBehaviour
         {
             pauseMenu.SetActive(false);
             pauseText.text = "Pause";
-
-            abcManager.playerInput.gameObject.SetActive(true);
-            abcManager.playerInput.ActivateInputField();
 
             RectTransform buttonRect = pauseButton.GetComponent<RectTransform>();
             if (buttonRect != null)
