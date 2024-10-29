@@ -7,13 +7,12 @@ public class AbcImg : MonoBehaviour
 {
     private AbcManager abcManager;
     private Rigidbody letterRb;
-    private EventSystem eventSystem; // reference to event system, handle input ui
+    private EventSystem eventSystem; 
 
     public ParticleSystem burstParticle;
     public GameObject prefab;
     public string word;
 
-    //public TMP_InputField playerInput;
     private float minSpeed = 12;
     private float maxSpeed = 16;
     private float maxTorque = 10;
@@ -28,22 +27,12 @@ public class AbcImg : MonoBehaviour
         }
     void Start()
         {
+            alpakey.Enable();
             letterRb = GetComponent<Rigidbody>();
             abcManager = GameObject.Find("Abc Manager").GetComponent<AbcManager>();
 
-            //playerInput = Object.FindFirstObjectByType<TMP_InputField>();
-            //if (playerInput != null)
-            //{
-            //    playerInput.onSubmit.AddListener((input) => OnSubmitPlayerInput);
-            //}
-            //else
-            //{
-            //    Debug.LogError("Player Input Field not found.");
-            //}
-
             abcManager.SetCurrentAbcImage(this);
             Debug.Log("Word assigned to this object: " + word);
-            //playerInput.ActivateInputField();
 
             GameObject gameManagerObject = GameObject.Find("Abc Manager");
             if (gameManagerObject != null)
@@ -51,12 +40,12 @@ public class AbcImg : MonoBehaviour
                 abcManager = gameManagerObject.GetComponent<AbcManager>();
                 if (abcManager == null)
                 {
-                    Debug.LogError("abcManager component not found on Game Manager object.");
+                    Debug.LogError("abcManager component not found on Manager object.");
                 }
             }
             else
             {
-                Debug.LogError("Game Manager object not found");
+                Debug.LogError("Manager object not found");
             }
 
             letterRb.AddForce(RandomForce(), ForceMode.Impulse);
@@ -88,35 +77,31 @@ public class AbcImg : MonoBehaviour
         //letterRb.transform.Rotate(0, .3f, 0);
     }
 
-
-
-    //public void OnSubmitPlayerInput(string input)
-    //{
-    //    if (input.ToLower() == word.ToLower())
-    //    {
-    //        Destroy(gameObject);
-    //        Instantiate(burstParticle, transform.position, burstParticle.transform.rotation);
-    //        Debug.Log("Correct!");
-    //        //abcManager.wordCount--;
-    //        abcManager.UpdateCountText();
-    //    }
-    //    playerInput.text = "";
-    //    playerInput.ActivateInputField();
-    //    playerInput.Select();
-
-    //}
-
     public void OnSubmitPlayerInput(InputAction.CallbackContext context)
     {
-        string keyPressed = context.control.displayName.ToLower(); // captures the key as a string                                                               
+        // Get the key pressed as a string
+        string keyPressed = context.control.displayName.ToLower();
+        Debug.Log("Key Pressed: " + keyPressed);
+
+        // Compare with the object's letter (word)
+        if (keyPressed == word.ToLower()) // Check if it matches the object's word
         {
             Destroy(gameObject);
+            Instantiate(burstParticle, transform.position, burstParticle.transform.rotation);
+            Debug.Log("Correct!");
+            //abcManager.wordCount--;
+            //abcManager.UpdateCountText();
         }
     }
 
     private void OnDestroy()
     {
-        // Remove the listener when the object is destroyed to avoid memory leaks
-        //playerInput.onSubmit.RemoveListener(OnSubmitPlayerInput);
+        if (alpakey != null)
+        {
+            // Remove the listener when the object is destroyed to avoid memory leaks
+            //playerInput.onSubmit.RemoveListener(OnSubmitPlayerInput);
+            alpakey.AlphabetActions.DestroyLetter.performed -= OnSubmitPlayerInput;
+            alpakey.AlphabetActions.Disable();
+        }
     }
 }
