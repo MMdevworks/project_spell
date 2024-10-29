@@ -6,13 +6,13 @@
 ## TODO: 
 <small> (Optional*) </small> 
 
-Timer
+[x] Timer
 
-Scene Change
+[x] Game End 
 
-Game End 
+[x] Menu - instructions 
 
-Menu
+[x] Scene Change
 
 Toggle opts
 
@@ -20,4 +20,6 @@ Alphabet speed opt *
 
 Assets **
 
-Notes: Separate UI elements? 
+Notes:
+
+removed dclty btns that had dclty assignments.

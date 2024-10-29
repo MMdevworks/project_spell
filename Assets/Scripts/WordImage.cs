@@ -14,8 +14,6 @@ public class WordImage : MonoBehaviour
     public ParticleSystem burstParticle;
     public GameObject prefab;
     public string word;
-    //private int wordCount = ;
-    //public TextMeshProUGUI wordText;
 
     public TMP_InputField playerInput;
 
@@ -54,8 +52,8 @@ public class WordImage : MonoBehaviour
             Destroy(gameObject);
             Instantiate(burstParticle, transform.position, burstParticle.transform.rotation);
             Debug.Log("Correct!");
-
-            //gameManager.UpdateScore(5);
+            gameManager.wordCount--;
+            gameManager.UpdateCountText();
         }
         playerInput.text = "";
         playerInput.ActivateInputField();

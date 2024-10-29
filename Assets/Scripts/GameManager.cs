@@ -8,10 +8,8 @@ using UnityEngine.UI; // UI interactions such as buttons
 
 public class GameManager : MonoBehaviour
 {
-    private float spawnRate = .5f;
+    private float spawnRate = .1f;
     private WordImage currentImg;
-
-    //public List<GameObject> targets;
 
     public List<GameObject> wordImg;
 
@@ -22,38 +20,23 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI countText;
 
-    private int wordCount;
+    public int wordCount;
    
     public Button restartButton;
     public GameObject titleScreen; // ref to titlescreen game object
+    public GameObject staticUI;
 
     public TMP_InputField playerInput; // input field **
 
     public bool isGameActive;
-
-
-    //void Awake()
-    //{
-    //    playerInput = Object.FindFirstObjectByType<TMP_InputField>();
-    //    if (playerInput != null)
-    //    {
-    //        playerInput.onSubmit.AddListener(OnSubmitPlayerInput);
-    //    }
-    //    else
-    //    {
-    //        Debug.LogError("Player Input Field not found.");
-    //    }
-    //}
-
-
+    //private HashSet<int> instantiated = new HashSet<int>();
 
     void Start()
     {
-        wordCount = wordImg.Count + 1;
-
+        wordCount = wordImg.Count;
+        UpdateCountText();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (stopWatchStart == true)
@@ -65,10 +48,25 @@ public class GameManager : MonoBehaviour
             timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         }
     }
+    public void StartGame()
+    {
+        isGameActive = true;
+        staticUI.gameObject.SetActive(true);
+
+        StartCoroutine(SpawnImage());
+
+        titleScreen.gameObject.SetActive(false);
+        playerInput.gameObject.SetActive(true);
+
+        string deltaTime = Time.deltaTime.ToString();
+        timerText.text = deltaTime;
+        stopWatchStart = true;
+    }
 
     IEnumerator SpawnImage() //methods to iterate over collection, return control to Unity temporarily
     {
         HashSet<int> instantiated = new HashSet<int>();
+        
         while (isGameActive)
         {
             if (Object.FindFirstObjectByType<WordImage>() == null)
@@ -81,8 +79,6 @@ public class GameManager : MonoBehaviour
                 {
                     instantiated.Add(index);
                     Instantiate(wordImg[index]);
-                    wordCount--;
-                    UpdateCountText();
                 }
             }
             else
@@ -96,6 +92,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         // get text, restart and show it 
+        stopWatchStart = false;
         restartButton.gameObject.SetActive(true);
         gameOverText.gameObject.SetActive(true);
         isGameActive = false;
@@ -106,48 +103,35 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // can pass in scene name or use method
     }
 
-    public void StartGame(int difficulty)
-    {
-        isGameActive = true;
-        spawnRate /= difficulty;
-
-        StartCoroutine(SpawnImage());
-
-        titleScreen.gameObject.SetActive(false);
-        playerInput.gameObject.SetActive(true);
-
-        string deltaTime = Time.deltaTime.ToString();
-        timerText.text = deltaTime;
-        stopWatchStart = true;
-    }
-
     public void SetCurrentWordImage(WordImage wordImage)
     {
         currentImg = wordImage;  // Set the active img obj when it spawns
     }
 
-    public void OnSubmitPlayerInput(string input)
+    public void UpdateCountText()
     {
-        if (currentImg != null && input.ToLower() == currentImg.word.ToLower())
-        {
-            Destroy(currentImg.gameObject); 
-           
-            playerInput.text = "";
-            wordCount--;
-
-            UpdateCountText();
-        }
-    }
-    private void UpdateCountText()
-    {
-        if (countText != null) // Ensure countText is assigned
+        //Debug.Log("this is word count!!!!!!!!! " + wordCount);
+        if (countText != null) 
         {
             countText.text = "Words Left: " + wordCount;
         }
-        else
+
+        if (wordCount == 0)
         {
-            Debug.LogError("Count Text is not assigned.");
+            Debug.Log("GAME END COUNTER  EQUALS WORDIMAGE COUNT WHICH SHOULD BE 4");
+            GameOver();
         }
     }
-
 }
+//void Awake()
+//{
+//    playerInput = Object.FindFirstObjectByType<TMP_InputField>();
+//    if (playerInput != null)
+//    {
+//        playerInput.onSubmit.AddListener(OnSubmitPlayerInput);
+//    }
+//    else
+//    {
+//        Debug.LogError("Player Input Field not found.");
+//    }
+//}
