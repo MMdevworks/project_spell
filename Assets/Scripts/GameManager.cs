@@ -25,11 +25,11 @@ public class GameManager : MonoBehaviour
     public Button restartButton;
     public GameObject titleScreen; // ref to titlescreen game object
     public GameObject staticUI;
+    public GameObject phonicsBoard;
 
     public TMP_InputField playerInput; // input field **
 
     public bool isGameActive;
-    //private HashSet<int> instantiated = new HashSet<int>();
 
     void Start()
     {
@@ -57,6 +57,23 @@ public class GameManager : MonoBehaviour
 
         titleScreen.gameObject.SetActive(false);
         playerInput.gameObject.SetActive(true);
+        phonicsBoard.gameObject.SetActive(true);
+        stopWatchStart = false;
+        timerText.gameObject.SetActive(false);
+        //string deltaTime = Time.deltaTime.ToString();
+        //timerText.text = deltaTime;
+        //stopWatchStart = true;
+    }
+
+    public void StartGameChallenge()
+    {
+        isGameActive = true;
+        staticUI.gameObject.SetActive(true);
+
+        StartCoroutine(SpawnImage());
+
+        titleScreen.gameObject.SetActive(false);
+        playerInput.gameObject.SetActive(true);
 
         string deltaTime = Time.deltaTime.ToString();
         timerText.text = deltaTime;
@@ -72,8 +89,7 @@ public class GameManager : MonoBehaviour
             if (Object.FindFirstObjectByType<WordImage>() == null)
             {
                 yield return new WaitForSeconds(spawnRate); //pause for spawn rate
-                int index = Random.Range(0, wordImg.Count);
-                
+                int index = Random.Range(0, wordImg.Count);              
 
                 if (!instantiated.Contains(index))
                 {
@@ -98,10 +114,10 @@ public class GameManager : MonoBehaviour
         isGameActive = false;
     }
 
-    public void RestartGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // can pass in scene name or use method
-    }
+    //public void RestartGame()
+    //{
+    //    SceneManager.LoadScene(SceneManager.GetActiveScene().name); // can pass in scene name or use method
+    //}
 
     public void SetCurrentWordImage(WordImage wordImage)
     {

@@ -7,6 +7,7 @@ public class SceneMenu : MonoBehaviour
 
     public Button pauseButton;
     public Button returnButton;
+    public Button titlescreenButton;
     public GameObject pauseMenu;
    
     private GameManager gameManager;
@@ -14,9 +15,10 @@ public class SceneMenu : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
-        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        //gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         pauseButton.onClick.AddListener(PauseScene);
         returnButton.onClick.AddListener(ReturnHome);
+        titlescreenButton.onClick.AddListener(TitleSelectionScreen);
     }
 
     void Update()
@@ -66,6 +68,10 @@ public class SceneMenu : MonoBehaviour
             }
         }
 
+    }
+    private void TitleSelectionScreen()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     private void ReturnHome()
     {

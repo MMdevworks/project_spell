@@ -17,6 +17,10 @@ public class TitleScreenOptions : MonoBehaviour
         {
             button.onClick.AddListener(LoadGame);
         }
+        else if (gameObject.name == "Challenge Button")
+        {
+            button.onClick.AddListener(LoadGameChallenge);
+        }
         else if (gameObject.name == "Abc Button")
         {
             button.onClick.AddListener(LoadAbc);
@@ -32,6 +36,11 @@ public class TitleScreenOptions : MonoBehaviour
     void LoadGame()
     {
         gameManager.StartGame();
+    }
+
+    void LoadGameChallenge()
+    {
+        gameManager.StartGameChallenge();
     }
 
     void LoadAbc()
