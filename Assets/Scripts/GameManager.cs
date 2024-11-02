@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     public GameObject titleScreen; // ref to titlescreen game object
     public GameObject staticUI;
     public GameObject phonicsBoard;
-
+    public AudioSource correctSound;
     public TMP_InputField playerInput; // input field **
 
     public bool isGameActive;
