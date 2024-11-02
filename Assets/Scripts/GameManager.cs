@@ -114,10 +114,12 @@ public class GameManager : MonoBehaviour
         isGameActive = false;
     }
 
-    //public void RestartGame()
-    //{
-    //    SceneManager.LoadScene(SceneManager.GetActiveScene().name); // can pass in scene name or use method
-    //}
+    public void RestartGame()
+    {
+        gameOverText.gameObject.SetActive(false);
+        StartGame();
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name); // can pass in scene name or use method
+    }
 
     public void SetCurrentWordImage(WordImage wordImage)
     {
