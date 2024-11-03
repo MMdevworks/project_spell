@@ -16,7 +16,10 @@ public class WordImage : MonoBehaviour
     public string word;
     private bool wait = true;
     public TMP_InputField playerInput;
-    private float pauseTime = .6f;
+    private float pauseTime = .4f;
+
+    public int missCounter = 2;
+    //public GameObject phonicsBoard;
 
     void Start()
     {
@@ -58,7 +61,7 @@ public class WordImage : MonoBehaviour
  
     IEnumerator TempMovement()
     {
-        imageRb.transform.Rotate(1f, 20f, 0);
+        imageRb.transform.Rotate(0f, 30f, 0);
         yield return new WaitForSeconds(pauseTime);
         wait = true;
 
@@ -73,11 +76,19 @@ public class WordImage : MonoBehaviour
             Instantiate(burstParticle, transform.position, burstParticle.transform.rotation);
             Debug.Log("Correct!");
             gameManager.wordCount--;
+            gameManager.phonicsBoard.SetActive(false);
+            missCounter = 2;
             gameManager.UpdateCountText();
         }
         else if (input.ToLower() != word.ToLower())
         {
            wait = false;
+           missCounter--;
+
+            if (missCounter == 0)
+            {
+                gameManager.phonicsBoard.SetActive(true);
+            }
         }
         playerInput.text = "";
         playerInput.ActivateInputField();

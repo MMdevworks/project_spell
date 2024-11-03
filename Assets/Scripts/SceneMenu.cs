@@ -36,17 +36,15 @@ public class SceneMenu : MonoBehaviour
 
             pauseMenu.SetActive(true);
             gameManager.stopWatchStart = false;
-            gameManager.playerInput.gameObject.SetActive(false);
-            gameManager.phonicsBoard.SetActive(false);               
+            //gameManager.playerInput.gameObject.SetActive(false);
     }
 
     private void ResumeScene()
     {
         pauseMenu.SetActive(false);
         gameManager.stopWatchStart = true;
-        gameManager.playerInput.gameObject.SetActive(true);
-        gameManager.playerInput.ActivateInputField();
-        gameManager.phonicsBoard.SetActive(true);
+        //gameManager.playerInput.gameObject.SetActive(true);
+        ////gameManager.playerInput.ActivateInputField();
     }
 
     private void TitleSelectionScreen()

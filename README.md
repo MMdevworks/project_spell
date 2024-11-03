@@ -1,25 +1,3 @@
-# Unity  Project_Spell
+# Mini Quest Academy
 
-## In progress..
-
-
-## TODO: 
-<small> (Optional*) </small> 
-
-[x] Timer
-
-[x] Game End 
-
-[x] Menu - instructions 
-
-[x] Scene Change
-
-Toggle opts
-
-Alphabet speed opt *
-
-Assets **
-
-Notes:
-
-removed dclty btns that had dclty assignments.
+An educational game concept built with Unity game engine.
