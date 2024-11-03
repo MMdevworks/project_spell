@@ -6,7 +6,9 @@ public class SceneMenu : MonoBehaviour
 {
 
     public Button pauseButton;
+    public Button resumeButton;
     public Button returnButton;
+    public Button titlescreenButton;
     public GameObject pauseMenu;
    
     private GameManager gameManager;
@@ -14,9 +16,10 @@ public class SceneMenu : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
-        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         pauseButton.onClick.AddListener(PauseScene);
+        resumeButton.onClick.AddListener(ResumeScene);
         returnButton.onClick.AddListener(ReturnHome);
+        titlescreenButton.onClick.AddListener(TitleSelectionScreen);
     }
 
     void Update()
@@ -26,47 +29,31 @@ public class SceneMenu : MonoBehaviour
 
     public void PauseScene()
     {
-        TMP_Text pauseText = pauseButton.GetComponentInChildren<TMP_Text>();
-
-        if (pauseText.text == "Pause")
-        {
             if (gameManager.gameOverText != null)
             {
                 gameManager.gameOverText.gameObject.SetActive(false);
             }
 
-
             pauseMenu.SetActive(true);
             gameManager.stopWatchStart = false;
             gameManager.playerInput.gameObject.SetActive(false);
-
-            pauseText.text = "Resume";
-
-            // set relative to parent element; transorm.position moved relative to world space
-            RectTransform buttonRect = pauseButton.GetComponent<RectTransform>();
-            if (buttonRect != null)
-            {
-                buttonRect.anchoredPosition = new Vector3(138f, -61f, -13.7f);  
-            }
-        }
-
-        else if (pauseText.text == "Resume")
-        {
-            pauseMenu.SetActive(false);
-            pauseText.text = "Pause";
-
-            gameManager.stopWatchStart = true;
-            gameManager.playerInput.gameObject.SetActive(true);
-            gameManager.playerInput.ActivateInputField();
-
-            RectTransform buttonRect = pauseButton.GetComponent<RectTransform>();
-            if (buttonRect != null)
-            {
-                buttonRect.anchoredPosition = new Vector2(462f, -164f);  
-            }
-        }
-
+            gameManager.phonicsBoard.SetActive(false);               
     }
+
+    private void ResumeScene()
+    {
+        pauseMenu.SetActive(false);
+        gameManager.stopWatchStart = true;
+        gameManager.playerInput.gameObject.SetActive(true);
+        gameManager.playerInput.ActivateInputField();
+        gameManager.phonicsBoard.SetActive(true);
+    }
+
+    private void TitleSelectionScreen()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     private void ReturnHome()
     {
         SceneManager.LoadScene("Game_Hub");

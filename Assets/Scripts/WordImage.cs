@@ -14,8 +14,9 @@ public class WordImage : MonoBehaviour
     public ParticleSystem burstParticle;
     public GameObject prefab;
     public string word;
-
+    private bool wait = true;
     public TMP_InputField playerInput;
+    private float pauseTime = .6f;
 
     void Start()
     {
@@ -38,22 +39,45 @@ public class WordImage : MonoBehaviour
     }
 
 
-    void Update()
+    //void Update()
+    //{
+    //    imageRb.transform.Rotate(0, .3f, 0);
+    //}
+
+    void FixedUpdate()
     {
-        imageRb.transform.Rotate(0, .3f, 0);
+        if (wait == true)
+        {
+            imageRb.transform.Rotate(0, 2f, 0);
+        }
+        else if (wait == false)
+        {
+            StartCoroutine(TempMovement());
+        }
     }
+ 
+    IEnumerator TempMovement()
+    {
+        imageRb.transform.Rotate(1f, 20f, 0);
+        yield return new WaitForSeconds(pauseTime);
+        wait = true;
 
-
+    }
 
     public void OnSubmitPlayerInput(string input)
     {
         if (input.ToLower() == word.ToLower())
         {
             Destroy(gameObject);
+            gameManager.correctSound.Play();
             Instantiate(burstParticle, transform.position, burstParticle.transform.rotation);
             Debug.Log("Correct!");
             gameManager.wordCount--;
             gameManager.UpdateCountText();
+        }
+        else if (input.ToLower() != word.ToLower())
+        {
+           wait = false;
         }
         playerInput.text = "";
         playerInput.ActivateInputField();
