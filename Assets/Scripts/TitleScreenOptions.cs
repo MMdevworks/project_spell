@@ -2,11 +2,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+// Attached to Title Screen buttons
+
 public class TitleScreenOptions : MonoBehaviour
 {
-    private Button startButton;
-    private Button abcButton;
-    private GameManager gameManager; // when importing get reference to it in start method
+
+    private GameManager gameManager;
 
     void Start()
     {       
@@ -25,12 +26,6 @@ public class TitleScreenOptions : MonoBehaviour
         {
             button.onClick.AddListener(LoadAbc);
         }
-
-    }
-
-    void Update()
-    {
-
     }
 
     void LoadGame()

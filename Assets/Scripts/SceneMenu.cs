@@ -1,16 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using TMPro;
+
+// UI Menu
+
 public class SceneMenu : MonoBehaviour
 {
-
     public Button pauseButton;
     public Button resumeButton;
     public Button returnButton;
     public Button titlescreenButton;
     public GameObject pauseMenu;
-   
     private GameManager gameManager;
 
     void Start()
@@ -22,31 +22,21 @@ public class SceneMenu : MonoBehaviour
         titlescreenButton.onClick.AddListener(TitleSelectionScreen);
     }
 
-    void Update()
-    {
-        
-    }
-
     public void PauseScene()
     {
-            if (gameManager.gameOverText != null)
-            {
-                gameManager.gameOverText.gameObject.SetActive(false);
-            }
+        if (gameManager.gameOverText != null)
+        {
+            gameManager.gameOverText.gameObject.SetActive(false);
+        }
 
-            pauseMenu.SetActive(true);
-            gameManager.stopWatchStart = false;
-            gameManager.playerInput.gameObject.SetActive(false);
-            gameManager.phonicsBoard.SetActive(false);               
+        pauseMenu.SetActive(true);
+        //gameManager.stopWatchStart = false;
     }
 
     private void ResumeScene()
     {
         pauseMenu.SetActive(false);
-        gameManager.stopWatchStart = true;
-        gameManager.playerInput.gameObject.SetActive(true);
-        gameManager.playerInput.ActivateInputField();
-        gameManager.phonicsBoard.SetActive(true);
+        //gameManager.stopWatchStart = true;
     }
 
     private void TitleSelectionScreen()
