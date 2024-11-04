@@ -100,6 +100,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Called when count = 0
     public void GameOver()
     {
         stopWatchStart = false;
@@ -114,7 +115,7 @@ public class GameManager : MonoBehaviour
         StartGame();
     }
 
-    // Set the active img obj when it spawns: Called in WordImage class
+    // Set current to active img obj when it spawns: Called in WordImage class
     public void SetCurrentWordImage(WordImage wordImage)
     {
         currentImg = wordImage;  

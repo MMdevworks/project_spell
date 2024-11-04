@@ -1,32 +1,31 @@
 using UnityEngine;
-using System.Collections.Generic;
 using System.Collections;
-using static UnityEngine.GraphicsBuffer;
 using TMPro;
 using UnityEngine.EventSystems;
+
+// Assigned to image prefabs
 
 public class WordImage : MonoBehaviour
 {
     private GameManager gameManager;
     private Rigidbody imageRb;
     private EventSystem eventSystem; // reference to event system, handle input ui
-
     public ParticleSystem burstParticle;
     public GameObject prefab;
-    public string word;
-    private bool wait = true;
     public TMP_InputField playerInput;
-    private float pauseTime = .4f;
 
+    public string word;
     public int missCounter = 2;
-    //public GameObject phonicsBoard;
+    private float pauseTime = .4f;
+    private bool wait = true;
 
+    // init all items needed on start
     void Start()
     {
         imageRb = GetComponent<Rigidbody>();
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
-        
         playerInput = Object.FindFirstObjectByType<TMP_InputField>();
+
         if (playerInput != null)
         {
             playerInput.onSubmit.AddListener(OnSubmitPlayerInput);
@@ -41,12 +40,12 @@ public class WordImage : MonoBehaviour
         playerInput.ActivateInputField(); // order matters
     }
 
+    void Update()
+    {
+    }
 
-    //void Update()
-    //{
-    //    imageRb.transform.Rotate(0, .3f, 0);
-    //}
-
+    // FixedUpdate() - used for physics-related operations. Synced with Unity's physics engine
+    // plays constant rotation animation and different animation on incorrect word
     void FixedUpdate()
     {
         if (wait == true)
@@ -67,6 +66,7 @@ public class WordImage : MonoBehaviour
 
     }
 
+    // Handle correct and incorrect input
     public void OnSubmitPlayerInput(string input)
     {
         if (input.ToLower() == word.ToLower())
@@ -92,12 +92,13 @@ public class WordImage : MonoBehaviour
         }
         playerInput.text = "";
         playerInput.ActivateInputField();
-        playerInput.Select();
-        
+        playerInput.Select();   
     }
+
+    // Unity method, auto called on an object when its destroyed
+    // removes listener associated with object destroyed
     private void OnDestroy()
     {
-        // Remove the listener when the object is destroyed to avoid memory leaks
         playerInput.onSubmit.RemoveListener(OnSubmitPlayerInput);
     }
 }
