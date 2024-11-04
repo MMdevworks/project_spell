@@ -3,7 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine.EventSystems;
 
-// Assigned to image prefabs
+// Assigned to image prefabsgi 
 
 public class WordImage : MonoBehaviour
 {
@@ -38,10 +38,6 @@ public class WordImage : MonoBehaviour
         gameManager.SetCurrentWordImage(this);
         Debug.Log("Word assigned to this object: " + word);  
         playerInput.ActivateInputField(); // order matters
-    }
-
-    void Update()
-    {
     }
 
     // FixedUpdate() - used for physics-related operations. Synced with Unity's physics engine

@@ -28,10 +28,6 @@ public class TitleScreenOptions : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-    }
-
     void LoadGame()
     {
         gameManager.StartGame();

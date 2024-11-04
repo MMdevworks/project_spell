@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
     private WordImage currentImg;
     private float spawnRate = .1f;
-    private float stopWatchTime = 0;
+    //private float stopWatchTime = 0;
 
     public List<GameObject> wordImg;
     public TextMeshProUGUI gameOverText; // name same as in Unity editor
@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public GameObject staticUI;
     public GameObject phonicsBoard;
     public AudioSource correctSound;
-    public bool stopWatchStart = false;
+    //public bool stopWatchStart = false;
     public int wordCount;
     public bool isGameActive;
 
@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
     // Called when count = 0
     public void GameOver()
     {
-        stopWatchStart = false;
+        //stopWatchStart = false;
         restartButton.gameObject.SetActive(true);
         gameOverText.gameObject.SetActive(true);
         isGameActive = false;
