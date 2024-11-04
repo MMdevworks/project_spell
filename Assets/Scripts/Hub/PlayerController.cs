@@ -17,11 +17,6 @@ public class PlayerController : MonoBehaviour
         playerRb = GetComponent<Rigidbody>(); // Access player's Rigidbody.
     }
 
-    void Update()
-    {
-
-    }
-
     private void FixedUpdate()
     {
 
