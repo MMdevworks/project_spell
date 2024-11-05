@@ -2,12 +2,14 @@ using TMPro;
 using UnityEngine;
 using System.Collections;
 
+// Assigned to Game Title; control intro animation
 public class TitleMovement : MonoBehaviour
 {
     public TextMeshProUGUI titleText;
-    public Vector2 position;
+    private Vector2 position = new Vector2(5.3663f, 34);
     private float timer = 0;
 
+    // RectTransform - manipulate UI elements; move from start position to new position over time;
     void Update()
     {
         RectTransform textRectTransform = titleText.GetComponent<RectTransform>();
@@ -18,16 +20,4 @@ public class TitleMovement : MonoBehaviour
             titleText.gameObject.SetActive(false);
         }
     }
-
-    //void FixedUpdate()
-    //{
-    //    StartCoroutine(TitleAnimation());
-
-    //}
-    //IEnumerator TitleAnimation()
-    //{
-
-    //    //yield return new WaitForSeconds(pauseTime);
-
-    //}
 }
