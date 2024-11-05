@@ -26,8 +26,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        wordCount = wordImg.Count;
-        UpdateCountText();
+        //wordCount = wordImg.Count;
+        //UpdateCountText();
     }
 
     // stopwatch functionality
@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviour
     // called from TitleScreenOptions class
     public void StartGame()
     {
+        wordCount = wordImg.Count;
+        UpdateCountText();
         isGameActive = true;
         staticUI.gameObject.SetActive(true);
 

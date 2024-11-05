@@ -3,7 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine.EventSystems;
 
-// Assigned to image prefabsgi 
+// Assigned to image prefabs
 
 public class WordImage : MonoBehaviour
 {
