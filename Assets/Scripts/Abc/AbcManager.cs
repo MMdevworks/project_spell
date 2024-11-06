@@ -31,7 +31,8 @@ public class AbcManager : MonoBehaviour
     private float timer = 0f;
     public float changeDuration = 2f; 
     private bool textChanged = false;
-
+    private float stopWatchTime = 0;
+    private bool stopWatchStart = false;
 
     void Start()
     {
@@ -57,10 +58,19 @@ public class AbcManager : MonoBehaviour
                 StartGame();
             }
         }
+
+        if (stopWatchStart == true)
+        {
+            stopWatchTime += Time.deltaTime;
+
+            int minutes = Mathf.FloorToInt(stopWatchTime / 60);
+            int seconds = Mathf.FloorToInt(stopWatchTime % 60);
+            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
     }
     public void StartGame()
     {
-
+        stopWatchStart = true;
         isGameActive = true;
         staticUI.gameObject.SetActive(true);
         titleScreen.gameObject.SetActive(false);

@@ -8,42 +8,22 @@ public class GameManager : MonoBehaviour
 {
     private WordImage currentImg;
     private float spawnRate = .1f;
-    //private float stopWatchTime = 0;
 
     public List<GameObject> wordImg;
-    public TextMeshProUGUI gameOverText; // name same as in Unity editor
+    public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI countText;
-    public TMP_InputField playerInput; // input field **
+    public TMP_InputField playerInput; 
     public Button restartButton;
-    public GameObject titleScreen; // ref to titlescreen game object
+    public GameObject titleScreen; 
     public GameObject staticUI;
     public GameObject phonicsBoard;
     public AudioSource correctSound;
-    //public bool stopWatchStart = false;
     public int wordCount;
     public bool isGameActive;
 
-    void Start()
-    {
-        //wordCount = wordImg.Count;
-        //UpdateCountText();
-    }
-
-    // stopwatch functionality
-    void Update()
-    {
-        //if (stopWatchStart == true)
-        //{
-        //    stopWatchTime += Time.deltaTime;
-
-        //    int minutes = Mathf.FloorToInt(stopWatchTime / 60);
-        //    int seconds = Mathf.FloorToInt(stopWatchTime % 60);
-        //    timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-        //}
-    }
-
     // called from TitleScreenOptions class
+
     public void StartGame()
     {
         wordCount = wordImg.Count;
@@ -55,7 +35,6 @@ public class GameManager : MonoBehaviour
 
         titleScreen.gameObject.SetActive(false);
         playerInput.gameObject.SetActive(true);     
-        //stopWatchStart = false;
         timerText.gameObject.SetActive(false);
     }
 
@@ -68,10 +47,6 @@ public class GameManager : MonoBehaviour
 
         titleScreen.gameObject.SetActive(false);
         playerInput.gameObject.SetActive(true);
-
-        //string deltaTime = Time.deltaTime.ToString();
-        //timerText.text = deltaTime;
-        //stopWatchStart = true;
     }
 
   
@@ -105,7 +80,6 @@ public class GameManager : MonoBehaviour
     // Called when count = 0
     public void GameOver()
     {
-        //stopWatchStart = false;
         restartButton.gameObject.SetActive(true);
         gameOverText.gameObject.SetActive(true);
         isGameActive = false;
