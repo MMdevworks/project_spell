@@ -13,8 +13,8 @@ public class AbcImg : MonoBehaviour
     public GameObject prefab;
     public string word;
 
-    private float minSpeed = 12;
-    private float maxSpeed = 16;
+    private float minSpeed = 3;
+    private float maxSpeed = 6;
     private float maxTorque = 10;
     //private float xRange = 0;
     //private float ySpawnPos = 0;

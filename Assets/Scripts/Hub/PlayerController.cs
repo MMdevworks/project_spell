@@ -1,15 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// Controls player movement and rotation.
+// Attached to player; controles movement.
 public class PlayerController : MonoBehaviour
 {
-    //private so cant be changed in insp
     private float movementSpeed = 10.0f;
-    //public float rotationSpeed = 120.0f; // Set player's rotation movementSpeed.
-
     public Transform cameraTransform;
-
     private Rigidbody playerRb; // Reference to player's Rigidbody.
 
     private void Start()
@@ -17,25 +13,20 @@ public class PlayerController : MonoBehaviour
         playerRb = GetComponent<Rigidbody>(); // Access player's Rigidbody.
     }
 
-    void Update()
-    {
-
-    }
-
     private void FixedUpdate()
     {
+        // unity default horizontal/vertical; capture input from wasd or arrow keys (0 , 1, or -1)
+        float horizontalInput = Input.GetAxis("Horizontal"); // left/right
+        float verticalInput = Input.GetAxis("Vertical"); // up/down
 
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-
-        // movement direction based on the camera's forward and right directions
+        // movement direction based on the camera's orientation
         Vector3 forwardMovement = cameraTransform.forward * verticalInput;
         Vector3 rightMovement = cameraTransform.right * horizontalInput;
 
-        // Combine directions and normalize to maintain consistent speed
+        // Combine directions and normalize to maintain consistent speed (smooth diagonal movement)
         Vector3 movement = (forwardMovement + rightMovement).normalized;
 
-        // movement to the player
+        // movement to the player obj
         transform.Translate(movement * movementSpeed * Time.deltaTime, Space.World);
     }
 
@@ -44,7 +35,6 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Game1"))
         {
             SceneManager.LoadScene("Game_Spell");
-            //SceneManager.LoadScene("Game_Spell", LoadSceneMode.Additive);
         }
     }
 }
