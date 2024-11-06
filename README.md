@@ -2,7 +2,7 @@
 
 An educational game concept built with Unity game engine.
 
-## GDOC
+## Game Design Document:
 
 <b><u>Player Control</u></b><br>
 User controls a character with WASD or Arrow keys through 3rd person view in the 'hub' area
@@ -12,7 +12,7 @@ User controls a character with WASD or Arrow keys through 3rd person view in the
 Within the hub area, player can visit different structures (representing categories) and be taken to a selection of related mini games to choose from.
 
 <b><u>Sound & Effects</u></b><br>
-Non distracting background music within mini games; more playful in the hub. Sound effects for positive feedback. 
+Non distracting background music within mini games; more playful in the hub. Sound effects for positive feedback. Sound clips provide auditory aid.
 
 <b><u>Gameplay Mechanics</u></b><br>
 
@@ -23,3 +23,10 @@ Non distracting background music within mini games; more playful in the hub. Sou
 	-- additional features: Provide aid if the player is having trouble with correct spelling.
 
 <b><u>User Interface</u></b><br>
+Buttons provide navigation across screens with ability for pause/resume. Screen UI in mini game will provide visual of words remaining and be used to provide visual aid.
+
+<b><u>Other Features</u></b><br>
+Progressive story element
+
+
+![sketch](mdAssets/MiniProjSketch.png)
