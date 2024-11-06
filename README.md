@@ -29,4 +29,5 @@ Buttons provide navigation across screens with ability for pause/resume. Screen 
 Progressive story element
 
 
-![sketch](mdAssets/MiniProjSketch.png)
+
+<img src="./mdAssets/MiniProjSketch.png" alt="sketch" width="500"/>
