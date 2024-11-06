@@ -11,9 +11,8 @@ public class WordImage : MonoBehaviour
     private Rigidbody imageRb;
     private EventSystem eventSystem; // reference to event system, handle input ui
     public ParticleSystem burstParticle;
-    public GameObject prefab;
     public TMP_InputField playerInput;
-
+    private TextMeshProUGUI hintText;
     public string word;
     public int missCounter = 2;
     private float pauseTime = .4f;
@@ -22,6 +21,7 @@ public class WordImage : MonoBehaviour
     // init all items needed on start
     void Start()
     {
+        hintText = GameObject.Find("Hint Text").GetComponent<TextMeshProUGUI>();
         imageRb = GetComponent<Rigidbody>();
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         playerInput = Object.FindFirstObjectByType<TMP_InputField>();
@@ -65,7 +65,8 @@ public class WordImage : MonoBehaviour
     // Handle correct and incorrect input
     public void OnSubmitPlayerInput(string input)
     {
-        if (input.ToLower() == word.ToLower())
+        hintText.text = "";
+        if (input.ToLower().Trim() == word)
         {
             Destroy(gameObject);
             gameManager.correctSound.Play();
@@ -76,8 +77,20 @@ public class WordImage : MonoBehaviour
             missCounter = 2;
             gameManager.UpdateCountText();
         }
-        else if (input.ToLower() != word.ToLower())
+        else if (input.ToLower() != word)
         {
+            // TODO: Implement checker; display correct letters in sequence so player knows what letters were correct.
+            // Word: APPLE Input: APLE => AP_LE
+            //foreach (char c in input.ToLower()) { Debug.Log(c); }
+            foreach (char c in input.ToLower())
+            {
+                if (word.Contains(c))
+                {
+                    hintText.text += c.ToString();
+                }
+            }
+            //foreach (char c in input.ToLower()) { Debug.Log(c); }
+
            wait = false;
            missCounter--;
 
