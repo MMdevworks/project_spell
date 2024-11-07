@@ -79,17 +79,49 @@ public class WordImage : MonoBehaviour
         }
         else if (input.ToLower() != word)
         {
+
             // TODO: Implement checker; display correct letters in sequence so player knows what letters were correct.
             // Word: APPLE Input: APLE => AP_LE
             //foreach (char c in input.ToLower()) { Debug.Log(c); }
-            foreach (char c in input.ToLower())
+            char[] letterHint = new char[word.Length];
+            int i = 0;
+            int w = 0;
+
+            while (i < input.Length && w < word.Length)
             {
-                if (word.Contains(c))
+                //if (i == input.Length - 1)
+                //{
+                //    letterHint[w] = '_';
+                //    w++;
+                //}
+
+                if (input[i] == word[w])
                 {
-                    hintText.text += c.ToString();
+                    letterHint[w] = input[i];
+                    i++;
+                    w++;
+                }
+                else
+                {
+                    letterHint[w] = '_';
+                    w++;
                 }
             }
+
+            foreach (char c in letterHint)
+            {
+                hintText.text += c.ToString();
+            }
+
+            //foreach (char c in input.ToLower())
+            //{
+            //    if (word.Contains(c))
+            //    {
+            //        hintText.text += c.ToString();
+            //    }
+            //}
             //foreach (char c in input.ToLower()) { Debug.Log(c); }
+
 
            wait = false;
            missCounter--;
