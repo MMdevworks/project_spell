@@ -30,13 +30,11 @@ public class SceneMenu : MonoBehaviour
         }
 
         pauseMenu.SetActive(true);
-        //gameManager.stopWatchStart = false;
     }
 
     private void ResumeScene()
     {
         pauseMenu.SetActive(false);
-        //gameManager.stopWatchStart = true;
     }
 
     private void TitleSelectionScreen()

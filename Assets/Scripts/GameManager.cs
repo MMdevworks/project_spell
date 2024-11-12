@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
     public bool isGameActive;
 
     // called from TitleScreenOptions class
-
     public void StartGame()
     {
         wordCount = wordImg.Count;
@@ -38,6 +37,7 @@ public class GameManager : MonoBehaviour
         timerText.gameObject.SetActive(false);
     }
 
+    // currently unused in demo
     public void StartGameChallenge()
     {
         isGameActive = true;

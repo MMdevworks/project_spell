@@ -33,6 +33,7 @@ public class TitleScreenOptions : MonoBehaviour
         gameManager.StartGame();
     }
 
+    // currently unused in demo
     void LoadGameChallenge()
     {
         gameManager.StartGameChallenge();
