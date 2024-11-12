@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using TMPro;
 using UnityEngine.EventSystems;
+using System;
 
 // Assigned to image prefabs
 
@@ -17,14 +18,23 @@ public class WordImage : MonoBehaviour
     public int missCounter = 2;
     private float pauseTime = .4f;
     private bool wait = true;
+    char[] letterHint;
 
     // init all items needed on start
     void Start()
     {
+
+        letterHint = new char[word.Length];
+        for(int i = 0; i < letterHint.Length; i++)
+        {
+            letterHint[i] = '_';
+        }
+
+
         hintText = GameObject.Find("Hint Text").GetComponent<TextMeshProUGUI>();
         imageRb = GetComponent<Rigidbody>();
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
-        playerInput = Object.FindFirstObjectByType<TMP_InputField>();
+        playerInput = GameObject.FindFirstObjectByType<TMP_InputField>();
 
         if (playerInput != null)
         {
@@ -65,7 +75,7 @@ public class WordImage : MonoBehaviour
     // Handle correct and incorrect input
     public void OnSubmitPlayerInput(string input)
     {
-        hintText.text = "";
+        //hintText.text = "";
         if (input.ToLower().Trim() == word)
         {
             Destroy(gameObject);
@@ -77,51 +87,22 @@ public class WordImage : MonoBehaviour
             missCounter = 2;
             gameManager.UpdateCountText();
         }
-        else if (input.ToLower() != word)
+        else 
         {
 
             // TODO: Implement checker; display correct letters in sequence so player knows what letters were correct.
             // Word: APPLE Input: APLE => AP_LE
-            //foreach (char c in input.ToLower()) { Debug.Log(c); }
-            char[] letterHint = new char[word.Length];
-            int i = 0;
-            int w = 0;
 
-            while (i < input.Length && w < word.Length)
+            for(int i = 0; i < word.Length; i++)
             {
-                //if (i == input.Length - 1)
-                //{
-                //    letterHint[w] = '_';
-                //    w++;
-                //}
+                if (i < input.Length && input[i] == word[i])
+                {
+                    letterHint[i] = input[i];
+                }
 
-                if (input[i] == word[w])
-                {
-                    letterHint[w] = input[i];
-                    i++;
-                    w++;
-                }
-                else
-                {
-                    letterHint[w] = '_';
-                    w++;
-                }
             }
 
-            foreach (char c in letterHint)
-            {
-                hintText.text += c.ToString();
-            }
-
-            //foreach (char c in input.ToLower())
-            //{
-            //    if (word.Contains(c))
-            //    {
-            //        hintText.text += c.ToString();
-            //    }
-            //}
-            //foreach (char c in input.ToLower()) { Debug.Log(c); }
-
+           hintText.text = new string(letterHint);
 
            wait = false;
            missCounter--;
