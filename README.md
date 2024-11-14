@@ -1,7 +1,8 @@
 # Mini Quest Academy
 
 An educational game concept built with Unity game engine.
-
+git 
+[![Mini Quest Academy](https://img.youtube.com/vi/ptG92RiFiJg/0.jpg)](https://www.youtube.com/watch?v=ptG92RiFiJg)
 ## Game Design Document:
 
 <b><u>Player Control</u></b><br>
