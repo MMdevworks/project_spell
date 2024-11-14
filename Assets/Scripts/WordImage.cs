@@ -82,6 +82,7 @@ public class WordImage : MonoBehaviour
             gameManager.correctSound.Play();
             Instantiate(burstParticle, transform.position, burstParticle.transform.rotation);
             Debug.Log("Correct!");
+            hintText.text = "";
             gameManager.wordCount--;
             gameManager.phonicsBoard.SetActive(false);
             missCounter = 2;
