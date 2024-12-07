@@ -2,6 +2,7 @@
 
 An educational game concept built with Unity game engine.
 
+## Video preview:
 [![Mini Quest Academy](https://img.youtube.com/vi/ptG92RiFiJg/0.jpg)](https://www.youtube.com/watch?v=ptG92RiFiJg)
 
 ## Game Design Document:
